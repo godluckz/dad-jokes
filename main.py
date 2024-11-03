@@ -1,6 +1,5 @@
 import requests
-from class_email_utils import EmailUtility
-# import json
+from class_notification_utils import NotificationUtility
 
 def email_joke(p_joke : str, p_email_to_list : list) -> None:
     w_message   = f"""
@@ -12,14 +11,14 @@ def email_joke(p_joke : str, p_email_to_list : list) -> None:
 
                 Have a great one.                
                 """
-    email_utils = EmailUtility()
-    email_utils.send_email(p_email_to  = p_email_to_list,
-                           p_subject   = "Joke of the day 😏",
-                           p_message   = w_message)
+    notification = NotificationUtility()
+    notification.send_email(p_email_to  = p_email_to_list,
+                            p_subject   = "Joke of the day 😏",
+                            p_message   = w_message)
 
 
 def main() -> None:
-    w_email_to      : str = input("Enter Email adress to send joke to (comma separated if more than one): ").strip().lower().replace(";",",")
+    w_email_to      : str = input("Enter Email address to send joke to (comma separated if more than one): ").strip().lower().replace(";",",")
     w_email_to_list : list = [i.strip() for i in w_email_to.split(",") if i]#remove empty data
 
     w_respnse = requests.get("https://icanhazdadjoke.com/slack")
